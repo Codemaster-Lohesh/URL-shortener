@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        
+        <fieldset>
+            <legend>Shorten URL</legend>
+            <div>
+                {{ form.original_url.label(class="form-label") }}
+                {% if form.original_url.errors %}
+                    {{ form.original_url(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.original_url.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.original_url(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div>
+                {{ form.short_id.label(class="form-label") }}
+                {% if form.short_id.errors %}
+                    {{ form.short_id(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.short_id.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.short_id(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-element">
+                {% if shortened_url %}
+                <hr>
+                <h3>Shortened URL:</h3>
+                <span><a href="{{ url_for('redirect_url',short_id=short_id)}}">{{ shortened_url }}</a></span>
+                <hr>
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-element">
+            {{ form.submit(class="") }}
+        </div>
+    </form>
+{% endblock %}

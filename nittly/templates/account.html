@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container m-3">
+        <div class="container m-3">
+            <h3>Username</h3>
+            <hr>
+            <p>{{ user.username }}</p>
+            <h3>Email</h3>
+            <hr>
+            <p>{{ user.email }}</p>
+        </div>
+        <div class="container m-3 p-3">
+            <h2>Shortened URLs</h2>
+            <hr>
+            {% for url in urls %}
+                <div class="p-5">
+                    <h3>Original URL</h3>
+                    <hr>
+                    <p>{{ url.original_url }}</p>
+                    <h3>Shortened URL</h3>
+                    <hr>
+                    <span><a href="{{ url_for('redirect_url',short_id=url.short_id)}}">{{ host_url + url.short_id }}</a></span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% endblock content%}
